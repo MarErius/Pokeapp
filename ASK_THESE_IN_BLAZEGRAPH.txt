@@ -1,0 +1,98 @@
+PREFIXES:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX bulb: <https://bulbapedia.bulbagarden.net/wiki/>
+PREFIX pdb: <https://pokemondb.net/pokedex/>
+PREFIX ex: <https://example.org/>
+
+QUERRIES:
+
+#Selects all that is organism Human and is friend with Brock and have pikachu as first pokemon.
+SELECT DISTINCT ?Human WHERE {
+	?Human ex:isOrganism bulb:Human .
+    	?Human ex:hasFriend bulb:Brock .
+	?Human ex:firstPokemon pdb:pikachu .
+} LIMIT 100
+
+
+#Selects all pokemon that are both fairy and water type and can learn the move "Tackle
+SELECT DISTINCT ?pokemon WHERE {
+  ?pokemon ex:isType bulb:water .
+  ?pokemon ex:isType bulb:fairy . 
+  ?pokemon ex:canLearnMove bulb:Tackle .
+} LIMIT 100
+
+
+#Selects all pokemon that has these moves, has the ability "Lightning_Rod" and is type "electric"
+SELECT DISTINCT ?pokemon WHERE {
+	?pokemon ex:canLearnMove bulb:Tackle .
+  	?pokemon ex:canLearnMove bulb:Quick_Attack .
+  	?pokemon ex:canLearnMove bulb:Bite .
+  	?pokemon ex:canLearnMove bulb:Snarl .
+  	?pokemon ex:canLearnMove bulb:Spark .
+  	?pokemon ex:hasAbility bulb:Lightning_Rod .
+  	?pokemon ex:isType bulb:electric
+} LIMIT 100
+
+
+#selects all pokemon and shows their ID
+SELECT DISTINCT ?pokemon ?id WHERE {
+	?pokemon ex:hasID ?id
+
+} LIMIT 100
+
+
+
+#Selects all pokemon that has ability "Blaze" and is type "fighting" and can learn the move "Mega_Punch"
+SELECT DISTINCT ?pokemon WHERE {
+  ?pokemon ex:hasAbility bulb:Blaze .
+  ?pokemon ex:isType bulb:fighting . 
+  ?pokemon ex:canLearnMove bulb:Mega_Punch
+} LIMIT 100
+
+
+#Selects Ash_Ketchums' first pokemon if it was an electric type
+SELECT DISTINCT ?pokemon WHERE {
+  bulb:Ash_Ketchum ex:firstPokemon ?pokemon .
+  ?pokemon ex:isType bulb:electric
+
+} LIMIT 100
+
+
+#selects all pokemon and tells if they can learn the move "Dragon_Rage"
+SELECT DISTINCT ?pokemon ?wantToLearn WHERE {
+  ?pokemon ?wantToLearn bulb:Dragon_Rage
+
+} LIMIT 100
+
+
+#Selects all elements and shows what element is strong against it
+SELECT DISTINCT ?Element ?StrongElement WHERE {
+	?Element ex:isWeakAgainst ?StrongElement
+
+} LIMIT 100
+
+
+
+#Selects all elements that are weak to fire, but strong against rock
+SELECT DISTINCT ?Element WHERE {
+	?Element ex:isWeakAgainst bulb:fire .
+    	?Element ex:isStrongAgainst bulb:rock
+
+} LIMIT 100
+
+
+#selects all elements that are weak to water and fire
+SELECT DISTINCT ?Element WHERE {
+	?Element ex:isWeakAgainst bulb:fire .
+    ?Element ex:isWeakAgainst bulb:water
+
+} LIMIT 100
+
+
+#Asks what organism blastoise is
+SELECT DISTINCT ?organism WHERE {
+	pdb:blastoise ex:isOrganism ?organism
+
+} LIMIT 100
+
+
